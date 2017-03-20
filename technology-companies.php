@@ -45,12 +45,10 @@ $companies = [
     ]
 ];
 
-
+ksort($companies);
 print_r($companies);
 
 
-
-// Add code to output the $companies array in its current form.
 
 // Sort the $companies array by company name and output the results.
 
