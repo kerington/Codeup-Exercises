@@ -1,9 +1,28 @@
 <?php
 
-	fwrite(STDOUT, 'Pick a starting number... ');
-	fwrite(STDOUT, 'Pick an ending number... ');
-	$userGuess = fgets(STDIN);
-		
+	$startingNumber = fwrite(STDOUT, 'Pick a starting number... ');
+	$endingNumber = fwrite(STDOUT, 'Pick an ending number... ');
+	$userGuess = fgets(STDIN
+
+
+for ($i = $startingNumber; $i <= $endingNumber; i++){
+
+}
+
+
+
+	// do {
+	// fwrite(STDOUT, 'Number guess? ');
+	// $userGuess = fgets(STDIN);
+	// 	if ($userGuess < $randomNumber) {
+	// 		echo "Hiiiiiigherrr...";
+	// 	} elseif ($userGuess > $randomNumber) {
+	// 	    echo "Loooooowerrr...";
+	// 	} else {
+	// 		echo "YOU GOT IT!\n";
+	// 		exit(0);
+	// 	}
+	// } while ($userGuess != $randomNumber);		
 
 
 
@@ -17,14 +36,3 @@
 // Default increment to 1 if no input.
 
 // Make sure you are only allowing users to pass in numbers. Give an error message is both passed arguments are not numeric. See php.net/is_numeric.
-
-
-
-
-
-
-
-
-// for ($a = 1; $a <= 100; $a++) {
-//     echo "{$a}\n";
-// }
