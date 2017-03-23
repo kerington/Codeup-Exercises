@@ -2,8 +2,7 @@
 
 //THIS FUNCTION IS TO READ THE FILE, GIVE YOU THE INFO, AND SPLIT UP THE NAME AND NUMBER!
 function parseContacts($file) {
-    $contacts = array();
-
+    	$contacts = array();
 		$filename = $file;
 		$handle = fopen($filename, 'r');
 		$contents = trim(fread($handle, filesize($filename)));
@@ -27,53 +26,79 @@ function parseContacts($file) {
 function showAllContacts($contactsArray) {
 	foreach ($contactsArray as $key => $content) {
 		echo "|" . $content[0] . " | " . $content[1] . "|" . PHP_EOL;
-
 	}
 	// echo $contactsArray[0][0];
 }
 
-$results = parseContacts('contacts.txt');
-showAllContacts($results);
+// showAllContacts($results);
+
 
 
 //THIS FUNCTION ALLOWS THE USER TO ADD A CONTACT
-function addAContact($contactsArray) {
-	$newContact = array();
-
-	$filename = 'contacts.txt';
+function addAContact($contactName, $phoneNumber, $filename) {
 	$handle = fopen($filename, 'a');
-	foreach ($newContact as $content) {
-	    fwrite($handle, PHP_EOL . $content);
-	}
+    fwrite($handle, PHP_EOL . $contactName . "|" . $phoneNumber);
 	fclose($handle);
 }
 
+//THIS FUNCTION ALLOWS THE USER TO SEARCH FOR A CONTACT
+// function findAContact(){
+// 	foreach ($contactsArray as $key => $contact) {
+// 		if (array_search($findAContact, $contactsArray) !== false) {
+// 			return true
+// 		} else {
+// 			return false
+// 		}
+// 	}
+// }
+
+//THIS FUNCTION ALLOWS USER TO DELETE A CONTACT
+fwrite(STDOUT, "Which contact would you like to delete?\n")
+$deleteAContact = strtolower(trim(fgets(STDIN)));
+$result = false;
+foreach ($contentsarray as $key => $contact){
+		if(strpos(strtolower($contact), $searchDelete) !== False){
+			$result = $key;
+			$resultName = $contact;
+			break;
+		}
+}
+
+mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )
 
 //THIS IS THE MAIN MENU
-function mainMenu() {
+function mainMenu($file) {
 	fwrite(STDOUT, "\n--MAIN MENU--" . PHP_EOL);
 	fwrite(STDOUT, "1. Show all contacts." . PHP_EOL);
 	fwrite(STDOUT, "2. Add a new contact." . PHP_EOL);
 	fwrite(STDOUT, "3. Find contacts by name." . PHP_EOL);
 	fwrite(STDOUT, "4. Delete an existing contact." . PHP_EOL);
 	fwrite(STDOUT, "Exit. Enter an option (1, 2, 3, 4, or 5)" . PHP_EOL);
-	$input - trim(fgets(STDIN));
+	$input = trim(fgets(STDIN));
 	switch($input) {
 		case 1:
-		showAllContacts();
+			$result = parseContacts($file);
+			showAllContacts($result);
+			break;
 		case 2:
-		addAContact();
+			fwrite(STDOUT, "Enter name for new contact.");
+			$askingName = fgets(STDIN);
+			fwrite(STDOUT, "Enter number for new contact.");
+			$askingNumber = fgets(STDIN);
+			addAContact($askingName, $askingNumber, $file);
 		case 3:
 		findAContact();
 		case 4:
 		deleteAContact();
-		case 5:
-		exitContacts();
+		// case 5:
+		// exitContacts();
 		break;
 	}
 }
 
-mainMenu();
+//THIS CONNECTS THE contacts.txt FILE TO THE MAIN MENU FILE (USING THE VARIABLE $file TO CONNECT THE TWO)
+mainMenu('contacts.txt');
+
 
 // -------------------------------------------------------
 // Focus on one working component at a time:
