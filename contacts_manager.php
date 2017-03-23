@@ -53,17 +53,36 @@ function findAContact($contactsArray){
 	echo $foundContact;
 }
 
-//THIS FUNCTION ALLOWS THE USER TO DELETE A CONTACT
-function deleteAContact($contactsArray){
-	fwrite(STDOUT, "Enter name to delete - ");
-	$deleteContact = trim(fgets(STDIN));
-	foreach ($contactsArray as $key => $contact) {
-		if (stripos($contact["name"], $searchContacts) !== false) {
-			$deletedContact = "";
+
+//Justin's delete contact
+if ($contactFound == true) {
+	$handle = fopen($filename, 'w');
+
+	foreach ($contactsArray as $contact) {
+		if (is_numeric(strpos($contact['name'], trim($name))) == false) {
+			$plainNumber = substr($contact['number'], 0, 3) . substr($contact['number'], 4, 3) . substr($contact['number'], 8)
+			fwrite($handle, PHP_EOL . $contact['name'] . "|" . $plainNumber);
 		}
-	} 
-	echo $deletedContact;
+	} fclose ($handle);
+
+	echo "\n CONTACT DELETED!\n\n\n";
+
+	} else {
+		echo "No contact to delete by that name. \n";
+	}
 }
+// //THIS FUNCTION ALLOWS THE USER TO DELETE A CONTACT
+// function deleteAContact($contactsArray){
+// 	fwrite(STDOUT, "Enter name to delete - ");
+// 	$deleteAContact = strtolower(trim(fgets(STDIN)));
+// 	$result = false;
+// 	foreach ($contentsarray as $key => $contact){
+// 		if(strpos(strtolower($contact), $searchDelete) !== False){
+// 			$result = $key;
+// 			$resultName = $contact;
+// 			break;
+// 	echo $deletedContact;
+// }
 
 //if contact exists then take the contact piece with naem and number and concat into string and return a string.
 
@@ -106,17 +125,7 @@ function mainMenu($file) {
 //THIS CONNECTS THE contacts.txt FILE TO THE MAIN MENU FILE (USING THE VARIABLE $file TO CONNECT THE TWO)
 mainMenu('contacts.txt');
 
-//THIS FUNCTION ALLOWS USER TO DELETE A CONTACT
-// fwrite(STDOUT, "Which contact would you like to delete?\n")
-// $deleteAContact = strtolower(trim(fgets(STDIN)));
-// $result = false;
-// foreach ($contentsarray as $key => $contact){
-// 		if(strpos(strtolower($contact), $searchDelete) !== False){
-// 			$result = $key;
-// 			$resultName = $contact;
-// 			break;
-// 		}
-// }
+
 
 // mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )
 
