@@ -12,8 +12,8 @@ function parseContacts($file) {
 
 		foreach ($contentsArray as $key => $content) {
 			$contactInfo = explode ("|", $content );
-			$contacts[$key][0] = $contactInfo[0];
-			$contacts[$key][1] = $contactInfo[1];
+			$contacts[$key]['name'] = $contactInfo[0];
+			$contacts[$key]['number'] = $contactInfo[1];
 		}
 
     return $contacts;
@@ -25,7 +25,7 @@ function parseContacts($file) {
 //THIS FUNCTION SHOWS ALL CONTACTS
 function showAllContacts($contactsArray) {
 	foreach ($contactsArray as $key => $content) {
-		echo "|" . $content[0] . " | " . $content[1] . "|" . PHP_EOL;
+		echo "|" . $content['name'] . " | " . $content['number'] . "|" . PHP_EOL;
 	}
 	// echo $contactsArray[0][0];
 }
@@ -42,29 +42,30 @@ function addAContact($contactName, $phoneNumber, $filename) {
 }
 
 //THIS FUNCTION ALLOWS THE USER TO SEARCH FOR A CONTACT
-// function findAContact(){
-// 	foreach ($contactsArray as $key => $contact) {
-// 		if (array_search($findAContact, $contactsArray) !== false) {
-// 			return true
-// 		} else {
-// 			return false
-// 		}
-// 	}
-// }
-
-//THIS FUNCTION ALLOWS USER TO DELETE A CONTACT
-fwrite(STDOUT, "Which contact would you like to delete?\n")
-$deleteAContact = strtolower(trim(fgets(STDIN)));
-$result = false;
-foreach ($contentsarray as $key => $contact){
-		if(strpos(strtolower($contact), $searchDelete) !== False){
-			$result = $key;
-			$resultName = $contact;
-			break;
+function findAContact($contactsArray){
+	fwrite(STDOUT, "Enter name to search for - ");
+	$searchContacts = trim(fgets(STDIN));
+	foreach ($contactsArray as $key => $contact) {
+		if (stripos($contact["name"], $searchContacts) !== false) {
+			$foundContact = $contact['name'] . " " . "|" . " " . $contact['number'] . PHP_EOL;
 		}
+	} 
+	echo $foundContact;
 }
 
-mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )
+//THIS FUNCTION ALLOWS THE USER TO DELETE A CONTACT
+function deleteAContact($contactsArray){
+	fwrite(STDOUT, "Enter name to delete - ");
+	$deleteContact = trim(fgets(STDIN));
+	foreach ($contactsArray as $key => $contact) {
+		if (stripos($contact["name"], $searchContacts) !== false) {
+			$deletedContact = "";
+		}
+	} 
+	echo $deletedContact;
+}
+
+//if contact exists then take the contact piece with naem and number and concat into string and return a string.
 
 //THIS IS THE MAIN MENU
 function mainMenu($file) {
@@ -74,31 +75,50 @@ function mainMenu($file) {
 	fwrite(STDOUT, "3. Find contacts by name." . PHP_EOL);
 	fwrite(STDOUT, "4. Delete an existing contact." . PHP_EOL);
 	fwrite(STDOUT, "Exit. Enter an option (1, 2, 3, 4, or 5)" . PHP_EOL);
+
 	$input = trim(fgets(STDIN));
+	$result = parseContacts($file);
+
 	switch($input) {
 		case 1:
 			$result = parseContacts($file);
 			showAllContacts($result);
 			break;
 		case 2:
-			fwrite(STDOUT, "Enter name for new contact.");
-			$askingName = fgets(STDIN);
-			fwrite(STDOUT, "Enter number for new contact.");
-			$askingNumber = fgets(STDIN);
+			fwrite(STDOUT, "Enter name for new contact - ");
+			$askingName = trim(fgets(STDIN));
+			fwrite(STDOUT, "Enter number for new contact - ");
+			$askingNumber = trim(fgets(STDIN));
 			addAContact($askingName, $askingNumber, $file);
+			break;
 		case 3:
-		findAContact();
+			findAContact($result);
+			break;
 		case 4:
-		deleteAContact();
+			deleteAContact();
+			break;
 		// case 5:
-		// exitContacts();
-		break;
+			// exitContacts();
+			break;
 	}
 }
 
 //THIS CONNECTS THE contacts.txt FILE TO THE MAIN MENU FILE (USING THE VARIABLE $file TO CONNECT THE TWO)
 mainMenu('contacts.txt');
 
+//THIS FUNCTION ALLOWS USER TO DELETE A CONTACT
+// fwrite(STDOUT, "Which contact would you like to delete?\n")
+// $deleteAContact = strtolower(trim(fgets(STDIN)));
+// $result = false;
+// foreach ($contentsarray as $key => $contact){
+// 		if(strpos(strtolower($contact), $searchDelete) !== False){
+// 			$result = $key;
+// 			$resultName = $contact;
+// 			break;
+// 		}
+// }
+
+// mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )
 
 // -------------------------------------------------------
 // Focus on one working component at a time:
