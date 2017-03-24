@@ -71,6 +71,9 @@ if ($contactFound == true) {
 		echo "No contact to delete by that name. \n";
 	}
 }
+
+
+
 // //THIS FUNCTION ALLOWS THE USER TO DELETE A CONTACT
 // function deleteAContact($contactsArray){
 // 	fwrite(STDOUT, "Enter name to delete - ");
@@ -87,6 +90,7 @@ if ($contactFound == true) {
 //if contact exists then take the contact piece with naem and number and concat into string and return a string.
 
 //THIS IS THE MAIN MENU
+
 function mainMenu($file) {
 	fwrite(STDOUT, "\n--MAIN MENU--" . PHP_EOL);
 	fwrite(STDOUT, "1. Show all contacts." . PHP_EOL);
@@ -121,6 +125,9 @@ function mainMenu($file) {
 			break;
 	}
 }
+
+
+
 
 //THIS CONNECTS THE contacts.txt FILE TO THE MAIN MENU FILE (USING THE VARIABLE $file TO CONNECT THE TWO)
 mainMenu('contacts.txt');
@@ -173,3 +180,4 @@ mainMenu('contacts.txt');
 //TODO:
 
 // NOTE WHAT "TRIM" DOES IN PHP NOTES**
+//Use "\t to tab!"**
